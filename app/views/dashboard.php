@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
+<?php
+session_start();
+if (!isset($_SESSION["usuario"])) {
+    header("Location: ../../public/");
+}
+
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -31,6 +39,15 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link ">Ventas seguro vivienda</a>
+                    </li>
+                    <?php
+                    if ($_SESSION['rol'] = 1) { ?>
+                    <li class="nav-item">
+                        <a class="nav-link " href="../views/perfil.php">Perfiles</a>
+                    </li>
+                    <?php } ?>
+                    <li class="nav-item">
+                        <a class="nav-link " href="../core/login/cerrarsesion.php">Cerrar sesion</a>
                     </li>
                 </ul>
             </div>
