@@ -41,7 +41,7 @@ if (!isset($_SESSION["usuario"])) {
                         <a class="nav-link ">Ventas seguro vivienda</a>
                     </li>
                     <?php
-                    if ($_SESSION['rol'] = 1) { ?>
+                    if ($_SESSION['rol'] == 1) { ?>
                     <li class="nav-item">
                         <a class="nav-link " href="../views/perfil.php">Perfiles</a>
                     </li>
@@ -72,7 +72,7 @@ if (!isset($_SESSION["usuario"])) {
                                     <img src="https://www.mmtseguros.com/hubfs/tipos_de_seguros_de_coche_1299x752_01.jpg"
                                         class="card-img-top" alt="Waterfall" />
                                     <div class="card-body">
-                                        <a href="/auto.php" class="btn btn-primary">Cotizar seguro auto</a>
+                                        <a href="./cotizar.php" class="btn btn-primary">Cotizar seguro auto</a>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +82,7 @@ if (!isset($_SESSION["usuario"])) {
                                     <img src="https://www.apeseg.org.pe/wp-content/uploads/2020/11/GettyImages-1224016961.jpg"
                                         class="card-img-top" alt="Sunset Over the Sea" />
                                     <div class="card-body">
-                                        <a href="/persona.php" class="btn btn-success">Cotizar seguro personas</a>
+                                        <a href="./cotizar.php" class="btn btn-success">Cotizar seguro personas</a>
                                     </div>
                                 </div>
                             </div>

@@ -3,31 +3,11 @@
 
 <?php
 require_once('../libs/Conexion.php');
+
+
 $conexion = Conexion::getConexion();
 $sql = "SELECT * FROM t_rol ";
 $result = mysqli_query($conexion->conectar(), $sql);
-$ip = get_client_ip();
-
-function get_client_ip()
-{
-    $ipaddress = '';
-    if (getenv('HTTP_CLIENT_IP'))
-        $ipaddress = getenv('HTTP_CLIENT_IP');
-    else if (getenv('HTTP_X_FORWARDED_FOR'))
-        $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
-    else if (getenv('HTTP_X_FORWARDED'))
-        $ipaddress = getenv('HTTP_X_FORWARDED');
-    else if (getenv('HTTP_FORWARDED_FOR'))
-        $ipaddress = getenv('HTTP_FORWARDED_FOR');
-    else if (getenv('HTTP_FORWARDED'))
-        $ipaddress = getenv('HTTP_FORWARDED');
-    else if (getenv('REMOTE_ADDR'))
-        $ipaddress = getenv('REMOTE_ADDR');
-    else
-        $ipaddress = 'UNKNOWN';
-    return $ipaddress;
-}
-
 ?>
 
 
@@ -138,7 +118,7 @@ function get_client_ip()
                                         </div>
                                     </div>
                                 </div>
-                                <input type="hidden" name="ip" value="<?php echo $ip ?>" />
+                                <input type="hidden" name="ip" value="<?php echo $_SESSION['ip'] ?>" />
                             </div>
                             <button class="btn btn--radius-2 btn--red" type="submit" name="enviar">Registrar</button>
                         </div>

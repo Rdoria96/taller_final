@@ -1,13 +1,9 @@
 <?php
 // Introducimos HTML de prueba
-$nombres = $_GET['nombres'];
-$apellidos = $_GET['apellidos'];
 $ciudad = $_GET['ciudad'];
-$telefono = $_GET['telefono'];
 $duracioncontrato = $_GET['duracioncontrato'];
-$correo = $_GET['correo'];
 $totalseguro = $_GET['totalseguro'];
-
+$correo = $_GET['mail'];
 $fecha = date('Y-m-d');
 $fecha_inicio = date_create($fecha);
 $f = explode('-', $fecha);
@@ -31,12 +27,12 @@ $html = "
                 <div class='card-body'>
 
                     <div class='form-row m-b-55'>
-                        <div class='name'>Total seguro</div>
+                        <div class='name'>Total seguro: " . $totalseguro . "</div>
                         <div class='value'>
                             <div class='col-9'>
                                 <div class='input-group-desc'>
                                     <p class='input--style-5'>
-                                        " . $totalseguro . "</p>
+                                        </p>
 
 	<div class=' form-row m-b-55'>
     <div class='name'>DATOS DEL PROPIETARIO</div>
@@ -44,7 +40,7 @@ $html = "
         <div class='row row-space'>
             <div class='col-2'>
                 <div class='input-group-desc'>
-                    <p class='input--style-5'>" . $nombres . " "  . $apellidos . "</p>
+                    <p class='input--style-5'></p>
                 </div>            </div>
             
         </div>
@@ -57,12 +53,12 @@ $html = "
 	</div>
 	
 	<div class='form-row'>
-    <div class='name'>Correo:" . $correo . "</p>
+    <div class='name'>Correo: " . $correo . "</p>
         </div>
     </div>
 	</div>
 	<div class='form-row'>
-    <div class='name'>Telefono:" . $telefono . "</p>
+    <div class='name'></p>
         </div>
     </div>
 	</div>

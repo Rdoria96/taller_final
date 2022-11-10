@@ -1,18 +1,14 @@
-<?
-require_once('./libs/Conexion.php');
+<?php
+require('../libs/Conexion.php');
+require_once('../core/logs/log.php');
+session_start();
 if (isset($_POST['enviar'])) {
     date_default_timezone_set('America/Bogota');
-
-
-
-    $nombres = $_POST['nombres'];
-    $apellidos = $_POST['apellidos'];
     $ciudad = $_POST['ciudad'];
-    $direccion = $_POST['direccion'];
-    $telefono = $_POST['telefono'];
     $duracioncontrato = $_POST['duracioncontrato'];
-    $correo = $_POST['correo'];
     $totalseguro = $_POST['totalseguro'];
+    $user_id = $_SESSION['id_user'];
+    $log = new Log;
 
     $fecha = date('Y-m-d');
     $fecha_inicio = date_create($fecha);
@@ -28,15 +24,20 @@ if (isset($_POST['enviar'])) {
 
     $conexion = Conexion::getConexion();
 
-    $sql = "INSERT INTO vivienda (totalseguros,nombres,apellidos,ciudad,direccion, telefono,correo, duracioncontrato)
-  VALUES('$totalseguro','$nombres','$apellidos','$ciudad','$direccion', '$telefono','$correo', '$duracioncontrato')";
+    $sql2 = "SELECT dsnombres,dsapellidos,correo FROM t_usuario WHERE id=$user_id";
+    $result2 = mysqli_query($conexion->conectar(), $sql2);
+
+    $row = mysqli_fetch_array($result2);
+
+    $sql = "INSERT INTO t_cotizacion(usuario_id, total_seguro, dsciudad, dscontrato)
+  VALUES('$user_id','$totalseguro','$ciudad','$duracioncontrato')";
 
     if ($conexion->conectar()->query($sql)) {
-        $_SESSION['success'] = 'Datos almacenados correctamente';
+        $log->insertar('GetCotizacionUsuario', $user_id, '::1');
     } else {
         $_SESSION['error'] = 'Algo salió mal al agregar el registro';
     }
-
+    $correo = $row['correo'];
 
 ?>
 
@@ -66,7 +67,7 @@ if (isset($_POST['enviar'])) {
     <link href="vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="css/main.css" rel="stylesheet" media="all">
+    <link href="../../public/assets/css/main.css" rel="stylesheet" media="all">
     <script src="jquery-1.3.2.min.js" type="text/javascript"></script>
 </head>
 
@@ -97,13 +98,13 @@ if (isset($_POST['enviar'])) {
                             <div class="row row-space">
                                 <div class="col-2">
                                     <div class="input-group-desc">
-                                        <p class="input--style-5"><?php echo $nombres ?> </p>
+                                        <p class="input--style-5"><?php echo $row['dsnombres'] ?></p>
                                         <label class="label--desc">Nombres</label>
                                     </div>
                                 </div>
                                 <div class="col-2">
                                     <div class="input-group-desc">
-                                        <p class="input--style-5"><?php echo $apellidos ?> </p>
+                                        <p class="input--style-5"> <?php echo $row['dsapellidos'] ?></p>
                                         <label class="label--desc">Apellidos</label>
                                     </div>
                                 </div>
@@ -114,15 +115,7 @@ if (isset($_POST['enviar'])) {
                         <div class="name">Ciudad</div>
                         <div class="value">
                             <div class="input-group">
-                                <p class="input--style-5"><?php echo $ciudad ?> </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="name">Direccion</div>
-                        <div class="value">
-                            <div class="input-group">
-                                <p class="input--style-5"><?php echo $direccion ?> </p>
+                                <p class="input--style-5"> <?php echo $ciudad ?> </p>
                             </div>
                         </div>
                     </div>
@@ -130,15 +123,7 @@ if (isset($_POST['enviar'])) {
                         <div class="name">Correo</div>
                         <div class="value">
                             <div class="input-group">
-                                <p class="input--style-5"><?php echo $correo ?> </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="name">Telefono</div>
-                        <div class="value">
-                            <div class="input-group">
-                                <p class="input--style-5"><?php echo $telefono ?> </p>
+                                <p class="input--style-5"> <?php echo $correo ?></p>
                             </div>
                         </div>
                     </div>
@@ -147,7 +132,7 @@ if (isset($_POST['enviar'])) {
                         <div class="value">
                             <div class="input-group-desc">
                                 <div class="rs-select2 js-select-simple select--no-search">
-                                    <p class="input--style-5"><?php echo $duracioncontrato ?> </p>
+                                    <p class="input--style-5"> <?php echo $duracioncontrato ?></p>
                                 </div>
                             </div>
                         </div>
@@ -162,8 +147,10 @@ if (isset($_POST['enviar'])) {
                             </div>
                         </div>
                     </div>
+
                     <a class="btn btn--radius-2 btn--blue center"
-                        href="crearPdf.php?<?php echo "nombres=" . $nombres . "&apellidos=" . $apellidos . "&ciudad=" . $ciudad . "&direccion=" . $direccion . "&telefono=" . $telefono . "&duracioncontrato=" . $duracioncontrato .  "&correo=" . $correo . "&totalseguro=" . $totalseguro ?>">Imprimir</a>
+                        href="../pdf/crearPdf.php?&ciudad=<?php echo $ciudad . "&duracioncontrato=" . $duracioncontrato . "&totalseguro=" . $totalseguro . "&correo=" . $correo ?>">
+                        Imprimir</a>
 
 
 

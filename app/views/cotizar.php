@@ -25,7 +25,7 @@
     <link href="/public/assets/css/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="/public/assets/css/main.css" rel="stylesheet" media="all">
+    <link href="../../public/assets/css/main.css" rel="stylesheet" media="all">
 </head>
 
 <body>

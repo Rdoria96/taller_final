@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+
 if (isset($_POST['enviar'])) {
     $ciudad = $_POST['ciudad'];
     $usoinmueble = $_POST['usoinmueble'];
@@ -8,6 +9,32 @@ if (isset($_POST['enviar'])) {
     $valorarriendo = $_POST['valorarriendo'];
     $valoriadmin = $_POST['valoriadmin'];
     $totalseguro = $valorarriendo + $valoriadmin * 0.1 *  $duracioncontrato;
+
+    if ($ciudad == "") {
+        array_push($campos, "El campo Ciudad no pude estar vacío");
+    }
+
+    if ($usoinmueble == "") {
+        array_push($campos, "El campo Uso inmueble no pude estar vacío");
+    }
+
+    if ($duracioncontrato == "") {
+        array_push($campos, "El campo Duracion contrato no pude estar vacío");
+    }
+
+    if ($valorarriendo == "") {
+        array_push($campos, "El campo Valor arriendo no pude estar vacío");
+    }
+
+    if ($valoriadmin == "") {
+        array_push($campos, "El campo Valor administracion no pude estar vacío");
+    }
+
+
+
+
+
+
 ?>
 
 <head>
@@ -34,7 +61,7 @@ if (isset($_POST['enviar'])) {
     <link href="/public/assets/css/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="/public/assets/css/main.css" rel="stylesheet" media="all">
+    <link href="../../public/assets/css/main.css" rel="stylesheet" media="all">
 </head>
 
 <body>
@@ -72,22 +99,7 @@ if (isset($_POST['enviar'])) {
                         </div>
                         <div class=" form-row m-b-55">
                             <div class="name">DATOS DEL PROPIETARIO</div>
-                            <div class="value">
-                                <div class="row row-space">
-                                    <div class="col-2">
-                                        <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="nombres">
-                                            <label class="label--desc">Nombres</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="input-group-desc">
-                                            <input class="input--style-5" type="text" name="apellidos">
-                                            <label class="label--desc">Apellidos</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                         <div class="form-row">
                             <div class="name">Ciudad</div>
@@ -95,30 +107,6 @@ if (isset($_POST['enviar'])) {
                                 <div class="input-group">
                                     <input class="input--style-5" type="text" name="ciudad"
                                         value="<?php echo $ciudad ?> ">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="name">Direccion</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <input class="input--style-5" type="text" name="direccion">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="name">Correo</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <input class="input--style-5" type="text" name="correo">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="name">Telefono</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <input class="input--style-5" type="number" name="telefono">
                                 </div>
                             </div>
                         </div>

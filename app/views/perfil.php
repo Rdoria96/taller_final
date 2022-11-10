@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <?php
 require_once('../libs/Conexion.php');
+require_once('../core/logs/log.php');
 $conexion = Conexion::getConexion();
 $sql = "SELECT u.id, u.dsnombres, u.dsapellidos, u.correo, u.usuario , u.estado, r.dsnombre FROM t_usuario u INNER JOIN t_rol r  on u.rol_id = r.id ";
 $result = mysqli_query($conexion->conectar(), $sql);
+
+$log = new Log;
+
+$log->insertar('GetPerfilUsuarios',   mysqli_insert_id($conexion->conectar()), '::1');
 
 ?>
 
@@ -39,7 +43,7 @@ $result = mysqli_query($conexion->conectar(), $sql);
     <link href="/public/assets/css/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
 
     <!-- Main CSS-->
-    <link href="/public/assets/css/main.css" rel="stylesheet" media="all">
+    <link href="../../public/assets/css/main.css" rel="stylesheet" media="all">
 </head>
 
 <body>
